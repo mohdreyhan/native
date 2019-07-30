@@ -1,0 +1,234 @@
+{
+    "Invoices": [
+        {
+            "Id": 1,
+            "Company": "Per se",
+            "Date": "2/26/2017",
+            "Cost": "$1234.23",
+            "Discount": "123",
+            "DiscountP": "12.1%",
+            "Paid": "false",
+            "InvoiceItems": [
+                {
+                    "id": 101,
+                    "Product": "Vanila",
+                    "Quantity": 38,
+                    "Cost": 961.90,
+                    "Discount": 115.30
+                },
+                {
+                    "id": 102,
+                    "Product": "Bay Leaf",
+                    "Quantity": 56,
+                    "Cost": 453.53,
+                    "Discount": 123.30
+                },
+                {
+                    "id": 103,
+                    "Product": "rosemary",
+                    "Quantity": 56,
+                    "Cost": 783.12,
+                    "Discount": 121.30
+                },
+                {
+                    "id": 104,
+                    "Product": "strawberry",
+                    "Quantity": 86,
+                    "Cost": 345.26,
+                    "Discount": 88.30
+                },
+                {
+                    "id": 105,
+                    "Product": "Orange",
+                    "Quantity": 53,
+                    "Cost": 423.52,
+                    "Discount": 66.30
+                }
+            ]
+        },
+        {
+            "Id": 2,
+            "Company": "Epicure",
+            "Date": "2/21/2017",
+            "Cost": "$9000.26",
+            "Discount": "1079",
+            "DiscountP": "11.1%",
+            "Paid": "false",
+            "InvoiceItems": [
+                {
+                    "id": 111,
+                    "Product": "Apple",
+                    "Quantity": 54,
+                    "Cost": 125.90,
+                    "Discount": 19.30
+                },
+                {
+                    "id": 112,
+                    "Product": "Mango",
+                    "Quantity": 36,
+                    "Cost": 65.36,
+                    "Discount": 11.30
+                },
+                {
+                    "id": 113,
+                    "Product": "Banana",
+                    "Quantity": 20,
+                    "Cost": 45.3,
+                    "Discount": 16.30
+                },
+                {
+                    "id": 114,
+                    "Product": "WaterMelon",
+                    "Quantity": 35,
+                    "Cost": 65.3,
+                    "Discount": 6.30
+                },
+                {
+                    "id": 115,
+                    "Product": "Green Apple",
+                    "Quantity": 97,
+                    "Cost": 88.3,
+                    "Discount": 12.30
+                }
+            ]
+        },
+        {
+            "Id": 3,
+            "Company": "Water Grill",
+            "Date": "2/28/2018",
+            "Cost": "$4400.26",
+            "Discount": "1041",
+            "DiscountP": "18.1%",
+            "Paid": "false",
+            "InvoiceItems": [
+                {
+                    "id": 111,
+                    "Product": "Vanila",
+                    "Quantity": 38,
+                    "Cost": 961.90,
+                    "Discount": 115.30
+                },
+                {
+                    "id": 222,
+                    "Product": "Bay Leaf",
+                    "Quantity": 56,
+                    "Cost": 453.53,
+                    "Discount": 123.30
+                },
+                {
+                    "id": 333,
+                    "Product": "rosemary",
+                    "Quantity": 56,
+                    "Cost": 783.12,
+                    "Discount": 121.30
+                },
+                {
+                    "id": 444,
+                    "Product": "strawberry",
+                    "Quantity": 86,
+                    "Cost": 345.26,
+                    "Discount": 88.30
+                },
+                {
+                    "id": 555,
+                    "Product": "Orange",
+                    "Quantity": 53,
+                    "Cost": 423.52,
+                    "Discount": 66.30
+                }
+            ]
+        },
+        {
+            "Id": 4,
+            "Company": "Five Sixty",
+            "Date": "2/21/2017",
+            "Cost": "$9000.26",
+            "Discount": "1079",
+            "DiscountP": "11.1%",
+            "Paid": "false",
+            "InvoiceItems": [
+                {
+                    "id": 111,
+                    "Product": "Apple",
+                    "Quantity": 54,
+                    "Cost": 125.90,
+                    "Discount": 19.30
+                },
+                {
+                    "id": 112,
+                    "Product": "Mango",
+                    "Quantity": 36,
+                    "Cost": 65.36,
+                    "Discount": 11.30
+                },
+                {
+                    "id": 113,
+                    "Product": "Banana",
+                    "Quantity": 20,
+                    "Cost": 45.3,
+                    "Discount": 16.30
+                },
+                {
+                    "id": 114,
+                    "Product": "WaterMelon",
+                    "Quantity": 35,
+                    "Cost": 65.3,
+                    "Discount": 6.30
+                },
+                {
+                    "id": 115,
+                    "Product": "Green Apple",
+                    "Quantity": 97,
+                    "Cost": 88.3,
+                    "Discount": 12.30
+                }
+            ]
+        },
+        {
+            "Id": 5,
+            "Company": "Bliss",
+            "Date": "2/28/2018",
+            "Cost": "$4400.26",
+            "Discount": "1041",
+            "DiscountP": "18.1%",
+            "Paid": "false",
+            "InvoiceItems": [
+                {
+                    "id": 111,
+                    "Product": "Vanila",
+                    "Quantity": 38,
+                    "Cost": 961.90,
+                    "Discount": 115.30
+                },
+                {
+                    "id": 222,
+                    "Product": "Bay Leaf",
+                    "Quantity": 56,
+                    "Cost": 453.53,
+                    "Discount": 123.30
+                },
+                {
+                    "id": 333,
+                    "Product": "rosemary",
+                    "Quantity": 56,
+                    "Cost": 783.12,
+                    "Discount": 121.30
+                },
+                {
+                    "id": 444,
+                    "Product": "strawberry",
+                    "Quantity": 86,
+                    "Cost": 345.26,
+                    "Discount": 88.30
+                },
+                {
+                    "id": 555,
+                    "Product": "Orange",
+                    "Quantity": 53,
+                    "Cost": 423.52,
+                    "Discount": 66.30
+                }
+            ]
+        }
+    ]
+}
