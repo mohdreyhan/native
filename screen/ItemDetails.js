@@ -1,14 +1,20 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Button, Text } from "react-native";
+import { StyleSheet,View, Button, Text } from "react-native";
+import {CardView} from "react-native-cardview";
 
 export default class ItemDetails extends Component {
   render() {
+    const { navigation } = this.props;
+    invoiceItems = navigation.getParam("data", "no inovice items received");
     return (
       <View style={styles.container}>
-        <Text>Item Details</Text>
+        <CardView cardElevation={2} cardMaxElevation={2} cornerRadius={5}>
+          <Text style={{ fontSize: 5 }}>Id</Text>
+          <Text>{invoiceItems[0]}</Text>
+        </CardView>
         <Button
-          title="go to Home Page"
-          onPress={() => this.props.navigation.navigate("Home")}
+          title="go to Items Page"
+          onPress={() => this.props.navigation.navigate("Items")}
         />
       </View>
     );
@@ -17,7 +23,7 @@ export default class ItemDetails extends Component {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: "#fff" },
-  head: { height: 40, backgroundColor: "#40a9ff"},
+  head: { height: 40, backgroundColor: "#40a9ff" },
   text: { margin: 6 },
-  row: { flexDirection: "row", backgroundColor: "#FFF1C1" },
+  row: { flexDirection: "row", backgroundColor: "#FFF1C1" }
 });

@@ -3,6 +3,13 @@ import { StyleSheet, View, Text, Button } from "react-native";
 import { Table, Row, TableWrapper, Cell } from "react-native-table-component";
 
 export default class ItemsTable extends Component {
+
+  navigateToDetails = data =>{
+    this.props.navigation.navigate("Details",{
+      data : data
+    })
+  }
+  
   render() {
     const { navigation } = this.props;
 
@@ -27,7 +34,7 @@ export default class ItemsTable extends Component {
           {invoiceItems.map((rowData, index) => (
             <TableWrapper key={index} style={styles.row}>
               {rowData.map((cellData, cellIndex) => (
-                <Cell key={cellIndex} data={cellData} textStyle={styles.text} />
+                <Cell key={cellIndex} data={cellData} textStyle={styles.text} onPress = {()=>this.navigateToDetails(rowData)}/>
               ))}
             </TableWrapper>
           ))}

@@ -36,6 +36,7 @@ export default class HomePage extends Component {
     });
   };
 
+  
   render() {
     return (
       <View style={styles.container}>

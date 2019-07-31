@@ -3,6 +3,9 @@ import { StyleSheet, View } from "react-native";
 import { Table, Row, TableWrapper, Cell } from "react-native-table-component";
 
 export default class InvoiceTable extends Component {
+
+  
+
   render() {
     const { tableData, InvoiceTableHeader, navigateToItems } = this.props;
 
