@@ -20,10 +20,10 @@
     "expo-constants": "^5.0.0",
     "expo-font": "^5.0.0",
     "expo-web-browser": "^5.0.0",
+    "native-base": "^2.13.4",
     "react": "16.8.3",
     "react-dom": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
-    "react-native-cardview": "^2.0.2",
     "react-native-table-component": "^1.2.0",
     "react-native-web": "^0.11.4",
     "react-navigation": "^3.11.0"

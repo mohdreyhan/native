@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { StyleSheet,View, Button, Text } from "react-native";
-import {CardView} from "react-native-cardview";
+import { StyleSheet, View, Button, Text } from "react-native";
+import { Container, Content, Card, CardItem } from "native-base";
 
 export default class ItemDetails extends Component {
   render() {
@@ -8,10 +8,50 @@ export default class ItemDetails extends Component {
     invoiceItems = navigation.getParam("data", "no inovice items received");
     return (
       <View style={styles.container}>
-        <CardView cardElevation={2} cardMaxElevation={2} cornerRadius={5}>
-          <Text style={{ fontSize: 5 }}>Id</Text>
-          <Text>{invoiceItems[0]}</Text>
-        </CardView>
+        <Container>
+          <Content>
+            <View style = {{flex: 1, flexDirection: 'row'}}>
+            <Card style = {{width : 160, height : 100 }}>
+              <CardItem style = {{textAlign : "center" ,justifyContent : "center", alignItems : "center"}}>
+                <Text style = {{fontSize : 20}}>
+                  <Text>ID</Text>{'\n'}{'\n'}
+                <Text>{invoiceItems[0]}</Text>
+                </Text>
+              </CardItem >
+            </Card>
+            <Card style = {{width : 160,height : 100 }}>
+              <CardItem style = {{textAlign : "center" ,justifyContent : "center", alignItems : "center"}}>
+                <Text style ={{  fontSize : 20}}>
+                  <Text>Product</Text>{'\n'}{'\n'}
+                <Text>{invoiceItems[1]}</Text>
+                </Text>
+              </CardItem>
+            </Card>
+            </View>
+            <View style = {{flex: 1, flexDirection: 'row'}}>
+            <Card style = {{width : 160, height : 100 }}>
+            <CardItem style = {{textAlign : "center" ,justifyContent : "center", alignItems : "center"}}>
+                <Text style ={{  fontSize : 20}}>
+                  <Text>Quantity</Text>{'\n'}{'\n'}
+                <Text>{invoiceItems[2]}</Text>
+                </Text>
+              </CardItem>
+            </Card>
+            <Card style = {{width : 160,height : 100 }}>
+              <CardItem style ={{ textAlign : "center" ,justifyContent : "center", alignItems : "center"}}>
+                <Text style ={{ fontSize : 20 }}>
+                  <Text>Cost</Text>{'\n'}{'\n'}
+                <Text >{invoiceItems[3]}</Text>
+                </Text>
+              </CardItem>
+            </Card>
+            </View>
+          </Content>
+        </Container>
+        <View style = {{flex : 1 , flexDirection : "row"}}>
+          <Button title = "Previous" />
+          <Button title = "Next" />
+        </View>
         <Button
           title="go to Items Page"
           onPress={() => this.props.navigation.navigate("Items")}
