@@ -1,39 +1,59 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
-import { Table, Row, TableWrapper, Cell } from "react-native-table-component";
+import { Table, Row, TableWrapper, Cell, Cols } from "react-native-table-component";
 import { Container, Content, Card, CardItem } from "native-base";
 
-
-
 export default class ItemsTable extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state ={
-      testdata : [],
-      testindex : "",
-      hide : true,
-      showdetails : false
-      
+    this.state = {
+      testdata: [],
+      targetIndex : null,
+      hide: true,
+      showdetails: false,
+      disPrevBtn : null,
+      disNextBtn : null,
+      index : null
+    };
+  }
+
+  navigateToDetails = (data, show, hide, invoiceItems, index) => {
+    this.setState({ testdata: data,
+      showdetails: show ,
+      hide: hide,
+      index : index
+    });   
+    disPrevBtn = index === 0 ? true : false;
+    this.setState({disPrevBtn : disPrevBtn});
+
+    disNextBtn = index === invoiceItems.length-1 ? true : false;
+    this.setState({disNextBtn : disNextBtn});
+ };
+
+
+
+  BackToItems = () => {
+    this.setState({ showdetails: false });
+    this.setState({ hide: true });
+  };
+
+  navigateItems = (itemDetails, targetIndex) => {
+    targetIndex=targetIndex++;
+    console.log("target index===",targetIndex)
+  let tempArray = [];
+  itemDetails.map((item,i) =>{
+    if(i === targetIndex){
+      tempArray = item;
     }
+    
+  })
+  this.setState({
+    testdata : tempArray,
+    
+  })
   }
 
-  navigateToDetails = (data,show,hide)=>
-  {
-    this.setState({testdata : data});
-    this.setState({showdetails : show})
-    this.setState({hide : hide})
-
-  }
-
-  BackToItems = () =>
-  {
-    this.setState({showdetails : false})
-    this.setState({hide : true})
-
-  }
-
-  
-  render(){
+  render() {
     const { navigation } = this.props;
 
     ItemsTableHeader = navigation.getParam(
@@ -47,14 +67,26 @@ export default class ItemsTable extends Component {
 
     return (
       <View style={styles.container}>
-        <Text>Invoice Items</Text>
-       <CreateTable hide = {this.state.hide} invoiceItems={invoiceItems} ItemsTableHeader = {ItemsTableHeader} navigateToDetails={this.navigateToDetails}/>
+        <CreateTable
+          hide={this.state.hide}
+          invoiceItems={invoiceItems}
+          ItemsTableHeader={ItemsTableHeader}
+          navigateToDetails={this.navigateToDetails}
+        />
         <View>
-          <ShowData data = {this.state.testdata} index= {this.state.index} showdetails = {this.state.showdetails} BackToItems = {this.BackToItems}/>
+          <ShowData
+           invoiceItems = {invoiceItems}
+            data={this.state.testdata}
+            index={this.state.index}
+            showdetails={this.state.showdetails}
+            BackToItems={this.BackToItems}
+            disPrevBtn = {this.state.disPrevBtn}
+            disNextBtn = {this.state.disNextBtn}
+            navigateItems = {this.navigateItems} 
+            targetIndex = {this.state.targetIndex}/>
         </View>
       </View>
-    )
-    
+    );
   }
 }
 
@@ -65,81 +97,89 @@ const styles = StyleSheet.create({
   row: { flexDirection: "row", backgroundColor: "#FFF1C1" }
 });
 
-const CreateTable = (props) =>
-{
+const CreateTable = props => {
   return props.hide ? (
     <View>
-       <Table borderStyle={{ borderWidth: 2, borderColor: "#40a9ff" }}>
-          <Row
-            data={ItemsTableHeader}
-            style={styles.head}
-            textStyle={{ color: "white", fontWeight: "bold", margin: 6 }}
-          />
-          {invoiceItems.map((rowData, index) => (
-            <TableWrapper key={index} style={styles.row}>
-              {rowData.map((cellData, cellIndex) => (
-                <Cell
-                  key={cellIndex}
-                  data={cellData}
-                  textStyle={styles.text}
-                  onPress={() => props.navigateToDetails(rowData,true,false)}
-                />
-              ))}
-            </TableWrapper>
-          ))}
-        </Table>
-        </View>
+      <Text style={{ fontSize: 30 }}>Invoice Items</Text>
+      <Table borderStyle={{ borderWidth: 2, borderColor: "#40a9ff" }}>
+        <Row
+          data={ItemsTableHeader}
+          style={styles.head}
+          textStyle={{ color: "white", fontWeight: "bold", margin: 6 }}
+        />
+        {invoiceItems.map((rowData, index) => (
+          <TableWrapper key={index} style={styles.row}>
+            {rowData.map((cellData, cellIndex) => (
+              <Cell
+                key={cellIndex}
+                data={cellData}
+                textStyle={styles.text}
+                onPress={() =>
+                  props.navigateToDetails(
+                    rowData,
+                    true,
+                    false,
+                    invoiceItems,
+                    index
+                  )
+                }
+              />
+            ))}
+          </TableWrapper>
+        ))}
+      </Table>
+    </View>
+  ) : null;
+};
 
-  ):
-  null
-}
+const ShowData = props => {
+  //console.log("props.invoiceItmes :: ",props.invoiceItems.length)
+  //props.invoiceItems.forEach(item => console.log(item))
+  return props.showdetails ? (
+    <View>
+      <Text style={{ fontSize: 30 }}>Item Details</Text>
+      <Card>
+        <CardItem>
+          <Text style={{ fontSize: 20 }}>
+            <Text>ID : </Text>
+            <Text>{props.data[0]}</Text>
+          </Text>
+        </CardItem>
+      </Card>
+      <Card>
+        <CardItem>
+          <Text style={{ fontSize: 20 }}>
+            <Text>product : </Text>
+            <Text>{props.data[1]}</Text>
+          </Text>
+        </CardItem>
+      </Card>
 
-const ShowData = (props) =>
-{ 
-  
-  
-  return props.showdetails ?(
-<View>
-       <Card>
-              <CardItem >
-                <Text >
-                  <Text>ID : </Text>
-                <Text>{props.data[0]}</Text>
-                </Text>
-              </CardItem >
-            </Card>
-            <Card>
-              <CardItem >
-                <Text >
-                  <Text>
-                    product : 
-                  </Text>
-                <Text>{props.data[1]}</Text>
-                </Text>
-              </CardItem >
-            </Card>
-    
-   
-    <Card>
-           <CardItem >
-             <Text >
-               <Text>Quantity : </Text>
-             <Text>{props.data[2]}</Text>
-             </Text>
-           </CardItem >
-         </Card>
-         <Card>
-           <CardItem >
-             <Text >
-               <Text>Cost : </Text>
-             <Text>{props.data[3]}</Text>
-             </Text>
-           </CardItem >
-         </Card>
-         <Button title = " Back to Items" onPress = {()=> props.BackToItems()}/>
-        </View>
- 
-    
-  )
-  : null
+      <Card>
+        <CardItem>
+          <Text style={{ fontSize: 20 }}>
+            <Text>Quantity : </Text>
+            <Text>{props.data[2]}</Text>
+          </Text>
+        </CardItem>
+      </Card>
+      <Card>
+        <CardItem>
+          <Text style={{ fontSize: 20 }}>
+            <Text>Cost : </Text>
+            <Text>{props.data[3]}</Text>
+          </Text>
+        </CardItem>
+      </Card>
+      <View style={{ padding: 10 }}>
+        <Button title="Previous" disabled = {props.disPrevBtn}  onPress = {() => props.navigateItems(props.invoiceItems,props.index-1)}/>
+      </View>
+      <View style={{ padding: 10 }}>
+        <Button title="Next"  disabled = {props.disNextBtn} onPress = {() => props.navigateItems(props.invoiceItems,props.index)}/>
+      </View>
+      <View style={{ padding: 10 }}>
+        <Button title=" Back to Items"  onPress={() => props.BackToItems()} />
+      </View>
+    </View>
+  ) : null;
 };
