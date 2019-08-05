@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
-import { Table, Row, TableWrapper, Cell, Cols } from "react-native-table-component";
+import {
+  Table,
+  Row,
+  TableWrapper,
+  Cell,
+  Cols
+} from "react-native-table-component";
 import { Container, Content, Card, CardItem } from "native-base";
 
 export default class ItemsTable extends Component {
@@ -8,29 +14,29 @@ export default class ItemsTable extends Component {
     super(props);
     this.state = {
       testdata: [],
-      targetIndex : null,
       hide: true,
       showdetails: false,
-      disPrevBtn : null,
-      disNextBtn : null,
-      index : null
+      disPrevBtn: null,
+      disNextBtn: null,
+      index: null
     };
   }
 
   navigateToDetails = (data, show, hide, invoiceItems, index) => {
-    this.setState({ testdata: data,
-      showdetails: show ,
+    this.setState({
+      testdata: data,
+      showdetails: show,
       hide: hide,
-      index : index
-    });   
+      index: index
+    });
+
     disPrevBtn = index === 0 ? true : false;
-    this.setState({disPrevBtn : disPrevBtn});
+    this.setState({ disPrevBtn: disPrevBtn });
 
-    disNextBtn = index === invoiceItems.length-1 ? true : false;
-    this.setState({disNextBtn : disNextBtn});
- };
-
-
+    disNextBtn =
+      index === invoiceItems.length - 1 ? true : false;
+    this.setState({ disNextBtn: disNextBtn });
+  };
 
   BackToItems = () => {
     this.setState({ showdetails: false });
@@ -38,20 +44,20 @@ export default class ItemsTable extends Component {
   };
 
   navigateItems = (itemDetails, targetIndex) => {
-    targetIndex=targetIndex++;
-    console.log("target index===",targetIndex)
-  let tempArray = [];
-  itemDetails.map((item,i) =>{
-    if(i === targetIndex){
-      tempArray = item;
-    }
-    
-  })
-  this.setState({
-    testdata : tempArray,
-    
-  })
-  }
+    let tempArray = [];
+    itemDetails.map((item, i) => {
+      if (i === targetIndex) {
+        tempArray = item;
+      }
+    });
+    this.navigateToDetails(
+      tempArray,
+      true,
+      false,
+      itemDetails,
+      targetIndex
+    )
+  };
 
   render() {
     const { navigation } = this.props;
@@ -75,15 +81,16 @@ export default class ItemsTable extends Component {
         />
         <View>
           <ShowData
-           invoiceItems = {invoiceItems}
+            invoiceItems={invoiceItems}
             data={this.state.testdata}
             index={this.state.index}
             showdetails={this.state.showdetails}
             BackToItems={this.BackToItems}
-            disPrevBtn = {this.state.disPrevBtn}
-            disNextBtn = {this.state.disNextBtn}
-            navigateItems = {this.navigateItems} 
-            targetIndex = {this.state.targetIndex}/>
+            disPrevBtn={this.state.disPrevBtn}
+            disNextBtn={this.state.disNextBtn}
+            navigateItems={this.navigateItems}
+            targetIndex={this.state.targetIndex}
+          />
         </View>
       </View>
     );
@@ -133,8 +140,6 @@ const CreateTable = props => {
 };
 
 const ShowData = props => {
-  //console.log("props.invoiceItmes :: ",props.invoiceItems.length)
-  //props.invoiceItems.forEach(item => console.log(item))
   return props.showdetails ? (
     <View>
       <Text style={{ fontSize: 30 }}>Item Details</Text>
@@ -172,13 +177,25 @@ const ShowData = props => {
         </CardItem>
       </Card>
       <View style={{ padding: 10 }}>
-        <Button title="Previous" disabled = {props.disPrevBtn}  onPress = {() => props.navigateItems(props.invoiceItems,props.index-1)}/>
+        <Button
+          title="Previous"
+          disabled={props.disPrevBtn}
+          onPress={() =>
+            props.navigateItems(props.invoiceItems, props.index - 1)
+          }
+        />
       </View>
       <View style={{ padding: 10 }}>
-        <Button title="Next"  disabled = {props.disNextBtn} onPress = {() => props.navigateItems(props.invoiceItems,props.index)}/>
+        <Button
+          title="Next"
+          disabled={props.disNextBtn}
+          onPress={() =>
+            props.navigateItems(props.invoiceItems, props.index + 1)
+          }
+        />
       </View>
       <View style={{ padding: 10 }}>
-        <Button title=" Back to Items"  onPress={() => props.BackToItems()} />
+        <Button title=" Back to Items" onPress={() => props.BackToItems()} />
       </View>
     </View>
   ) : null;
