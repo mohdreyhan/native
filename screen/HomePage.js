@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Button } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Button,
+  ImageBackground,
+  Modal,
+  Text
+} from "react-native";
 import InvoiceTable from "./InvoiceTable";
 import info from "../info/info";
 
@@ -8,16 +15,19 @@ export default class HomePage extends Component {
     super(props);
     this.state = {
       invoiceTableData: [[]],
-      info: info.Invoices
+      info: info.Invoices,
+      show: false
     };
   }
-  fetchInfo = () => {
+
+  fetchInfo = show => {
     let tempData = [[]];
     this.state.info.forEach(record => {
       tempData.push([record.Id, record.Company, record.Cost, record.Discount]);
     });
     this.setState({
-      invoiceTableData: tempData
+      invoiceTableData: tempData,
+      show: show
     });
   };
 
@@ -31,22 +41,31 @@ export default class HomePage extends Component {
       );
     });
     this.props.navigation.navigate("Items", {
+      ItemsTableHeader: ItemsTableHeader,
       invoiceItems: invoiceItems,
-      ItemsTableHeader: ItemsTableHeader
+      modal: this.modal
     });
   };
 
-  
   render() {
     return (
-      <View style={styles.container}>
-        <Button title="fetch Info" onPress={this.fetchInfo} />
-        <InvoiceTable
-          tableData={this.state.invoiceTableData}
-          InvoiceTableHeader={InvoiceTableHeader}
-          navigateToItems={this.navigateToItems}
-        />
-      </View>
+      <ImageBackground
+        resizeMode="cover"
+        source={require("./img.jpg")}
+        style={styles.container}
+      >
+        <View style={{ alignItems: "center", paddingBottom: 30 }}>
+          <Button title="fetch Info" onPress={() => this.fetchInfo(true)} />
+        </View>
+        <View style={{ paddingLeft: 10, paddingRight: 10 }}>
+          <InvoiceTable
+            tableData={this.state.invoiceTableData}
+            navigateToItems={this.navigateToItems}
+            InvoiceTableHeader={InvoiceTableHeader}
+            show={this.state.show}
+          />
+        </View>
+      </ImageBackground>
     );
   }
 }
@@ -55,5 +74,5 @@ const InvoiceTableHeader = ["Id", "Company", "Cost", "Discount"];
 const ItemsTableHeader = ["Id", "Product", "Quantity", "Cost"];
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: "#fff" }
+  container: { flex: 1, paddingTop: 30 }
 });

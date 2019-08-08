@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, Button } from "react-native";
 import {
-  Table,
-  Row,
-  TableWrapper,
-  Cell,
-  Cols
-} from "react-native-table-component";
-import { Container, Content, Card, CardItem } from "native-base";
+  StyleSheet,
+  View,
+  Text,
+  ImageBackground,
+  Button,
+  ScrollView
+} from "react-native";
+import { Table, Row, TableWrapper, Cell } from "react-native-table-component";
+import { Card, CardItem } from "native-base";
 
 export default class ItemsTable extends Component {
   constructor(props) {
@@ -33,8 +34,7 @@ export default class ItemsTable extends Component {
     disPrevBtn = index === 0 ? true : false;
     this.setState({ disPrevBtn: disPrevBtn });
 
-    disNextBtn =
-      index === invoiceItems.length - 1 ? true : false;
+    disNextBtn = index === invoiceItems.length - 1 ? true : false;
     this.setState({ disNextBtn: disNextBtn });
   };
 
@@ -50,13 +50,7 @@ export default class ItemsTable extends Component {
         tempArray = item;
       }
     });
-    this.navigateToDetails(
-      tempArray,
-      true,
-      false,
-      itemDetails,
-      targetIndex
-    )
+    this.navigateToDetails(tempArray, true, false, itemDetails, targetIndex);
   };
 
   render() {
@@ -72,43 +66,46 @@ export default class ItemsTable extends Component {
     );
 
     return (
-      <View style={styles.container}>
-        <CreateTable
-          hide={this.state.hide}
-          invoiceItems={invoiceItems}
-          ItemsTableHeader={ItemsTableHeader}
-          navigateToDetails={this.navigateToDetails}
-        />
-        <View>
-          <ShowData
-            invoiceItems={invoiceItems}
-            data={this.state.testdata}
-            index={this.state.index}
-            showdetails={this.state.showdetails}
-            BackToItems={this.BackToItems}
-            disPrevBtn={this.state.disPrevBtn}
-            disNextBtn={this.state.disNextBtn}
-            navigateItems={this.navigateItems}
-            targetIndex={this.state.targetIndex}
-          />
-        </View>
-      </View>
+      <ImageBackground
+        resizeMode="cover"
+        source={require("./img.jpg")}
+        style={styles.container}
+      >
+        <ScrollView style={{ paddingLeft: 10, paddingRight: 10 }}>
+          <View>
+            <CreateTable
+              hide={this.state.hide}
+              invoiceItems={invoiceItems}
+              ItemsTableHeader={ItemsTableHeader}
+              navigateToDetails={this.navigateToDetails}
+            />
+            <View>
+              <ShowData
+                invoiceItems={invoiceItems}
+                data={this.state.testdata}
+                index={this.state.index}
+                showdetails={this.state.showdetails}
+                modalVisible={this.state.modalVisible}
+                BackToItems={this.BackToItems}
+                disPrevBtn={this.state.disPrevBtn}
+                disNextBtn={this.state.disNextBtn}
+                navigateItems={this.navigateItems}
+                targetIndex={this.state.targetIndex}
+                modalDisplay={this.modalDisplay}
+              />
+            </View>
+          </View>
+        </ScrollView>
+      </ImageBackground>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: "#fff" },
-  head: { height: 40, backgroundColor: "#40a9ff" },
-  text: { margin: 6 },
-  row: { flexDirection: "row", backgroundColor: "#FFF1C1" }
-});
-
 const CreateTable = props => {
   return props.hide ? (
     <View>
-      <Text style={{ fontSize: 30 }}>Invoice Items</Text>
-      <Table borderStyle={{ borderWidth: 2, borderColor: "#40a9ff" }}>
+      <Text style={{ fontSize: 30, paddingBottom: 30 }}>Invoice Items</Text>
+      <Table borderStyle={{ borderWidth: 2, borderColor: "white" }}>
         <Row
           data={ItemsTableHeader}
           style={styles.head}
@@ -142,7 +139,14 @@ const CreateTable = props => {
 const ShowData = props => {
   return props.showdetails ? (
     <View>
-      <Text style={{ fontSize: 30 }}>Item Details</Text>
+      <View
+        style={{ alignSelf: "flex-end", paddingLeft: 90, paddingBottom: 20 }}
+      >
+        <Button
+          title="Edit"
+          onPress={() => props.modalDisplay(!props.modalVisible)}
+        />
+      </View>
       <Card>
         <CardItem>
           <Text style={{ fontSize: 20 }}>
@@ -176,27 +180,41 @@ const ShowData = props => {
           </Text>
         </CardItem>
       </Card>
-      <View style={{ padding: 10 }}>
-        <Button
-          title="Previous"
-          disabled={props.disPrevBtn}
-          onPress={() =>
-            props.navigateItems(props.invoiceItems, props.index - 1)
-          }
-        />
+      <View style={{ flexDirection: "row", paddingTop: 30 }}>
+        <View style={{ paddingLeft: 40, paddingRight: 60 }}>
+          <Button
+            style={styles.button}
+            title="Previous"
+            disabled={props.disPrevBtn}
+            onPress={() =>
+              props.navigateItems(props.invoiceItems, props.index - 1)
+            }
+          />
+        </View>
+        <View style={{ paddingLeft: 70, paddingRight: 40 }}>
+          <Button
+            title="Next"
+            disabled={props.disNextBtn}
+            onPress={() =>
+              props.navigateItems(props.invoiceItems, props.index + 1)
+            }
+          />
+        </View>
       </View>
-      <View style={{ padding: 10 }}>
-        <Button
-          title="Next"
-          disabled={props.disNextBtn}
-          onPress={() =>
-            props.navigateItems(props.invoiceItems, props.index + 1)
-          }
-        />
-      </View>
-      <View style={{ padding: 10 }}>
+      <View style={styles.button}>
         <Button title=" Back to Items" onPress={() => props.BackToItems()} />
       </View>
     </View>
   ) : null;
 };
+
+const styles = StyleSheet.create({
+  container: { flex: 1, paddingTop: 30 },
+  head: { height: 40, backgroundColor: "#40a9ff" },
+  text: { margin: 6 },
+  row: { flexDirection: "row", height: 40 },
+  button: {
+    alignItems: "center",
+    paddingTop: 30
+  }
+});
